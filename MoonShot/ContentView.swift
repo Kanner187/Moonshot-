@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(missions){ mission in
-                NavigationLink(destination: Text("Details coming soon")) {
+                NavigationLink(destination: DetailsView(astronauts: self.astronauts , missions: self.missions)) {
                     Image(mission.image)
                         .resizable()
                         .scaledToFit()
@@ -29,7 +29,6 @@ struct ContentView: View {
                         Text("\(mission.formattedDate)")
                             .font(.system(size: 12))
                     }
-                    
                 }
                 
             }
