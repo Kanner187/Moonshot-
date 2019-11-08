@@ -9,14 +9,16 @@
 import SwiftUI
 
 struct DetailsView_: View {
+    var missions: [Mission]
+    var astronauts: [Astronaut]
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Hello, World!")
     }
 }
 
 struct DetailsView__Previews: PreviewProvider {
     static var previews: some View {
-        DetailsView_()
+        DetailsView_(missions: [], astronauts: [])
     }
 }
