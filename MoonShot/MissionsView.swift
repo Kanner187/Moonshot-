@@ -37,7 +37,8 @@ struct MissionsView: View {
                         .font(.headline)
                         .underline()) {
 
-                    ForEach(self.astronauts , id: \.role){crewMember in
+                ForEach(self.astronauts , id: \.role){crewMember in
+                    NavigationLink(destination: AstronautView(astronaut: crewMember.astronaut)){
                         HStack{
                             Image("\(crewMember.astronaut.id)")
                             .resizable()
@@ -53,8 +54,9 @@ struct MissionsView: View {
                                     .foregroundColor(crewMember.role.hasPrefix("Commander") ? .red : .green)
                             }
                             Spacer()
-                                
                         }
+                    }
+                    .buttonStyle(PlainButtonStyle())
                         .padding(.horizontal)
                         
                     }
