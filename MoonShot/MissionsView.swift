@@ -31,6 +31,7 @@ struct MissionsView: View {
                     Text("\(self.mission.formattedDate)")
                     
                     Text("\(self.mission.description)")
+                    .layoutPriority(1)
                         .padding()
                     
                     Spacer(minLength: 25)
