@@ -11,30 +11,42 @@ import SwiftUI
 struct AstronautView: View {
     let astronaut: Astronaut
     let mission: Mission
+    @State private var popview = false
     
     var body: some View {
         GeometryReader{ geometry in
             ScrollView(.vertical, showsIndicators: true) {
                 VStack{
-                    Image("\(self.astronaut.id)")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: geometry.size.width)
-                        .onLongPressGesture {
-                            print(self.astronaut.id)
+                    ZStack{
+                        Image("\(self.astronaut.id)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width)
+                            .onLongPressGesture {
+                                self.popview = true
+                        }
+                        
+                        
+                        if self.popview{
+                            Text("\(self.astronaut.id)")
+                                .padding()
+                                .foregroundColor(.white)
+                                .background(Color.black.opacity(0.7))
+                                .cornerRadius(10)
+                        }
                     }
                     
                     Section(header: Text("About \(self.astronaut.name)")
                         .font(.headline)) {
-                        Text("\(self.astronaut.description)")
+                            Text("\(self.astronaut.description)")
                     }
-                .layoutPriority(1)
+                    .layoutPriority(1)
                     .padding()
                     
                     Section(header:Text("Mission")
                         .font(.headline)){
-                        Text("\(self.mission.displayName)")
-                            .foregroundColor(.purple)
+                            Text("\(self.mission.displayName)")
+                                .foregroundColor(.purple)
                     }
                     
                 }

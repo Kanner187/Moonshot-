@@ -23,6 +23,7 @@ struct ContentView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width:44 , height: 44)
+                    
                     VStack(alignment: .leading){
                         Text("\(mission.displayName)")
                             .fontWeight(.bold)
