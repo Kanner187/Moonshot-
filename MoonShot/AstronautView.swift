@@ -22,9 +22,11 @@ struct AstronautView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: geometry.size.width)
-                            .onLongPressGesture {
+                            .onLongPressGesture(minimumDuration: 1, pressing: { (popview) in
+                                self.popview = popview
+                            }, perform: {
                                 self.popview = true
-                        }
+                            })
                         
                         
                         if self.popview{
