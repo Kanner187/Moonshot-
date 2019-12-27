@@ -23,45 +23,51 @@ struct MissionsView: View {
         GeometryReader{geometry in
             ScrollView(.vertical){
                 VStack{
-                    Image("\(self.mission.image)")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.7)
-                    .padding(.top)
+                    GeometryReader{ geo in
+                        Image("\(self.mission.image)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width * 0.7)
+                            .padding(.top)
+                            .scaleEffect((geometry.size.height / geo.frame(in: .global).minY) / 3)
+                        
+                    }
+                    .frame(height: geometry.size.height * 0.4)
+                    
                     Text("\(self.mission.formattedDate)")
                     
                     Text("\(self.mission.description)")
-                    .layoutPriority(1)
+                        .layoutPriority(1)
                         .padding()
                     
                     Spacer(minLength: 25)
                     Section(header: Text("Crew")
                         .font(.headline)
                         .underline()) {
-
-                ForEach(self.astronauts , id: \.role){crewMember in
-                    NavigationLink(destination: AstronautView(astronaut: crewMember.astronaut , mission: self.mission)){
-                        HStack{
-                            Image("\(crewMember.astronaut.id)")
-                            .resizable()
-                                .frame(width: 93 , height: 70)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.primary, lineWidth: 1))
                             
-                            VStack(alignment: .leading){
-                                Text("\(crewMember.astronaut.name)")
-                                    .font(.headline)
-                                Text("\(crewMember.role)")
-                                    .font(.system(size: 15))
-                                    .foregroundColor(crewMember.role.hasPrefix("Commander") ? .red : .green)
+                            ForEach(self.astronauts , id: \.role){crewMember in
+                                NavigationLink(destination: AstronautView(astronaut: crewMember.astronaut , mission: self.mission)){
+                                    HStack{
+                                        Image("\(crewMember.astronaut.id)")
+                                            .resizable()
+                                            .frame(width: 93 , height: 70)
+                                            .clipShape(Circle())
+                                            .overlay(Circle().stroke(Color.primary, lineWidth: 1))
+                                        
+                                        VStack(alignment: .leading){
+                                            Text("\(crewMember.astronaut.name)")
+                                                .font(.headline)
+                                            Text("\(crewMember.role)")
+                                                .font(.system(size: 15))
+                                                .foregroundColor(crewMember.role.hasPrefix("Commander") ? .red : .green)
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                .padding(.horizontal)
+                                
                             }
-                            Spacer()
-                        }
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                        .padding(.horizontal)
-                        
-                    }
                     }
                 }
             }
